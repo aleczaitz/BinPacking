@@ -20,7 +20,7 @@ def load_items(filename):
 
 
 def main():
-    data = load_items("data4.txt")
+    data = load_items("../data/data1.txt")
     packed_bins = bin_packing_exact(data, 1)
     for i, b in enumerate(packed_bins):
         print(f'Bin {i + 1}: {b.items}')
