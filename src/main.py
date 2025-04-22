@@ -15,7 +15,7 @@ def load_items(filename):
                     continue  # skip blank lines
                 items.append(float(line))
                 item_count += 1
-            print(f"\nNumber of items: {item_count}\n")
+            print(f"\nNumber of items: {item_count}")
         return items
     except ValueError:
         raise Exception("Error loading file")
@@ -24,9 +24,13 @@ def load_items(filename):
 
 
 def main():
+    # Adjustments
     data = load_items("../data/data4.txt")
+    bin_capacity = 1
+
+    print(f"Bin size: {bin_capacity}\n")
     start_time = time.time()
-    packed_bins = bin_packing_exact(data, 1)
+    packed_bins = bin_packing_exact(data, bin_capacity)
     end_time = time.time()
     for i, b in enumerate(packed_bins):
         print(f'Bin {i + 1}: {b.items}')
