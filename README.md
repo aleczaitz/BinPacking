@@ -1,4 +1,4 @@
 # Bin Packing Problem
-### Algorithms Final
-#### Matthew Hamp & Alec Zaitz
+### Algorithms Final - Matthew Hamp & Alec Zaitz
+
 
