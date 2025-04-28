@@ -4,7 +4,6 @@ from approximate import first_fit_dec, best_fit_dec
 from new_algos import first_fit_decreasing_lookahead, genetic_bin_packing
 
 
-
 def load_items(filename):
     """parse a data file and return a list of items"""
     try:
@@ -33,6 +32,7 @@ def main():
     for file in files:
         print(f"\n=== Testing {file.split('/')[-1]} ===")
         data = load_items(file)
+        print(f"Bin size: {bin_capacity}")
 
         # Exact Algorithm
         start_time = time.time()
@@ -58,7 +58,7 @@ def main():
         end_time = time.time()
         print(f"FFD-LA - Bins: {len(ffd_la_bins)} Time: {end_time - start_time:.8f}s")
 
-        # Genetic Algo
+        # Genetic Algorithm
         start_time = time.time()
         genetic_bins = genetic_bin_packing(data, bin_capacity)
         end_time = time.time()
