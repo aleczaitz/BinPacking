@@ -1,6 +1,7 @@
 from exact import bin_packing_exact
 import time
 from approximate import first_fit_dec, best_fit_dec
+from new_algos import first_fit_decreasing_lookahead, genetic_bin_packing
 
 
 
@@ -26,41 +27,42 @@ def load_items(filename):
 
 
 def main():
-    # Load data
-    data = load_items("../data/data4.txt")
+    files = ["../data/data1.txt", "../data/data2.txt", "../data/data3.txt", "../data/data4.txt"]
     bin_capacity = 1
 
-    print(f"Bin size: {bin_capacity}\n")
+    for file in files:
+        print(f"\n=== Testing {file.split('/')[-1]} ===")
+        data = load_items(file)
 
-    print("\nRunning Exact Algorithm...")
-    start_time = time.time()
-    packed_bins = bin_packing_exact(data, bin_capacity)
-    end_time = time.time()
-    for i, b in enumerate(packed_bins):
-        print(f'Exact Bin {i + 1}: {b.items}')
-    print(f"Exact Algo Time: {end_time - start_time:.4f} seconds")
-    print(f"Exact Algo - Bins used: {len(packed_bins)}")
+        # Exact Algorithm
+        start_time = time.time()
+        packed_bins = bin_packing_exact(data, bin_capacity)
+        end_time = time.time()
+        print(f"Exact - Bins: {len(packed_bins)} Time: {end_time - start_time:.8f}s")
 
+        # First-Fit Decreasing (FFD)
+        start_time = time.time()
+        ffd_bins = first_fit_dec(data, bin_capacity)
+        end_time = time.time()
+        print(f"FFD - Bins: {len(ffd_bins)} Time: {end_time - start_time:.8f}s")
 
-    print("\nRunning First-Fit Decreasing (FFD)...")
-    start_time = time.time()
-    ffd_bins = first_fit_dec(data, bin_capacity)
-    end_time = time.time()
-    for i, b in enumerate(ffd_bins):
-        print(f'FFD Bin {i + 1}: {b}')
-    print(f"FFD Time: {end_time - start_time:.4f} seconds")
-    print(f"FFD - Bins used: {len(ffd_bins)}")
+        # Best-Fit Decreasing (BFD)
+        start_time = time.time()
+        bfd_bins = best_fit_dec(data, bin_capacity)
+        end_time = time.time()
+        print(f"BFD - Bins: {len(bfd_bins)} Time: {end_time - start_time:.8f}s")
 
+        # First-Fit Decreasing Lookahead (FFD-LA)
+        start_time = time.time()
+        ffd_la_bins = first_fit_decreasing_lookahead(data, bin_capacity)
+        end_time = time.time()
+        print(f"FFD-LA - Bins: {len(ffd_la_bins)} Time: {end_time - start_time:.8f}s")
 
-    print("\nRunning Best-Fit Decreasing (BFD)..")
-    start_time = time.time()
-    bfd_bins = best_fit_dec(data, bin_capacity)
-    end_time = time.time()
-    for i, b in enumerate(bfd_bins):
-        print(f'BFD Bin {i + 1}: {b}')
-    print(f"BFD Time: {end_time - start_time:.4f} seconds")
-    print(f"BFD - Bins used: {len(bfd_bins)}")
-
+        # Genetic Algo
+        start_time = time.time()
+        genetic_bins = genetic_bin_packing(data, bin_capacity)
+        end_time = time.time()
+        print(f"Genetic - Bins: {len(genetic_bins)} Time: {end_time - start_time:.8f}s")
 
 
 if __name__ == "__main__":
